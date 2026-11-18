@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lab Maya Android Studio: Membuat Aplikasi Pertama</title>
+<style>
+:root{--bg:#10241f;--panel:#f6f8f5;--ink:#14231f;--g:#0f8a5f;--gd:#0a5f42;--y:#f2b705;--r:#c0392b;--line:#c9d6cf;--mut:#47605a}
+*{box-sizing:border-box}html,body{height:100%;margin:0;background:#0a1714;font-family:"Trebuchet MS","Segoe UI",sans-serif;color:var(--ink)}
+body{display:flex;align-items:center;justify-content:center;overflow:hidden}
+#stage{width:min(100vw,177.78vh);aspect-ratio:16/9;background:var(--bg);position:relative;font-size:min(1.6vw,2.84vh);overflow:hidden}
+.scr{position:absolute;inset:0;display:none;padding:2.2em 3em;flex-direction:column}.scr.on{display:flex}
+h1{font-size:2.6em;margin:0 0 .3em;color:#fff;line-height:1.1}h2{font-size:1.5em;margin:0 0 .4em}h3{margin:.2em 0 .4em;font-size:1.1em}
+p{line-height:1.45;margin:.3em 0}.w{color:#e8f3ee}
+button{font:inherit;font-weight:700;border:0;border-radius:.5em;padding:.55em 1.1em;min-height:2.4em;cursor:pointer;background:var(--g);color:#fff}
+button:hover{background:var(--gd)}button.s{background:#fff;color:var(--ink);border:2px solid var(--line)}button.s:hover{background:#e8f0ec}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--y)}
+.card{background:var(--panel);border-radius:.8em;padding:1em 1.2em}
+.row{display:flex;gap:1em}.col{flex:1;min-width:0}
+.nav{margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding-top:.6em}
+.top{display:flex;justify-content:space-between;align-items:center;color:#fff;margin-bottom:.6em}
+.steps{display:flex;gap:.5em}.steps button{background:#1d3a33;color:#cfe5dc;border:2px solid #2d554a}
+.steps button.on{background:var(--y);color:#1a1a1a;border-color:var(--y)}.steps button.done::after{content:" ✓"}
+.opt{display:block;width:100%;text-align:left;background:#fff;color:var(--ink);border:2px solid var(--line);margin:.3em 0}
+.opt:hover{background:#eaf4ef}.opt.ok{background:#d6f2e4;border-color:var(--g)}.opt.no{background:#fbdcd7;border-color:var(--r)}
+.fb{margin-top:.5em;padding:.6em .8em;border-radius:.5em;font-weight:600;background:#e3ebe7;min-height:2.4em}.fb.ok{background:#d6f2e4;color:#0a5f42}.fb.no{background:#fbdcd7;color:#8e2418}
+input,select,textarea{font:inherit;padding:.4em .6em;border:2px solid var(--line);border-radius:.4em;width:100%;background:#fff}
+label{font-weight:700;display:block;margin-top:.5em}
+.phone{width:11em;height:19em;background:#fff;border:.5em solid #111;border-radius:1.2em;margin:0 auto;padding:.6em;position:relative;overflow:hidden;color:#111;font-size:.85em}
+.phone .bar{background:#0f8a5f;color:#fff;margin:-.6em -.6em .5em;padding:.4em .6em;font-weight:700}
+.w1{padding:.3em .2em}.w2{border-bottom:2px solid #555;padding:.3em .2em;color:#555}.w3{background:#0f8a5f;color:#fff;text-align:center;border-radius:.3em;padding:.4em;margin:.3em 0;cursor:pointer}
+.sel{outline:2px dashed var(--y)}.toast{position:absolute;bottom:.8em;left:1em;right:1em;background:#333;color:#fff;border-radius:1em;text-align:center;padding:.4em;font-size:.9em}
+.log{background:#0b0f0e;color:#9fe8c1;font-family:Consolas,monospace;padding:.7em;border-radius:.5em;height:9em;overflow:auto;font-size:.85em;white-space:pre-wrap}
+.log .e{color:#ff8a7a}.code{background:#0b0f0e;color:#e6ede9;font-family:Consolas,monospace;padding:.7em;border-radius:.5em;font-size:.82em;white-space:pre-wrap}
+.bar2{height:.7em;background:#2d554a;border-radius:1em;overflow:hidden}.bar2 i{display:block;height:100%;background:var(--y);width:0;transition:width .4s}
+.tag{display:inline-block;background:var(--y);color:#1a1a1a;border-radius:1em;padding:.1em .7em;font-weight:700;font-size:.85em}
+</style></head><body><div id="stage">
+
+<section class="scr on" id="home" style="justify-content:center">
+<span class="tag" style="align-self:flex-start">Lab Maya · Teknologi Informasi (Pengembangan Perangkat Lunak)</span>
+<h1 style="margin-top:.4em">Android Studio: Membuat Aplikasi Pertama</h1>
+<p class="w" style="max-width:34em;font-size:1.1em">Adik-adik, bayangkan kamu diminta pemilik kantin sekolah membuat aplikasi pemesanan menu. Di lab ini kamu akan membuat proyek, mendesain tampilan, menjalankannya di perangkat virtual, lalu memperbaiki galat (error) seperti programmer sungguhan. Tanpa instalasi, tanpa risiko!</p>
+<p class="w" style="font-size:1.1em"><b>Pertanyaan pemantik:</b> Mengapa aplikasi yang sama bisa berjalan di satu perangkat tetapi gagal di perangkat lain?</p>
+<div style="margin-top:1em"><button onclick="go('guide')">Mulai</button></div>
+</section>
+
+<section class="scr" id="guide">
+<h2 style="color:#fff">Panduan</h2>
+<div class="row"><div class="card col"><h3>Tujuan belajar</h3><p>1. Membuat proyek dengan template dan pengaturan Min SDK yang tepat.<br>2. Menyusun tampilan dengan widget dan mengubah atributnya.<br>3. Menjalankan aplikasi pada perangkat virtual dan membaca hasilnya.<br>4. Menganalisis pesan galat di Logcat dan memilih perbaikan.</p></div>
+<div class="card col"><h3>Cara bermain lab</h3><p>• Ada 4 langkah. Tombol langkah di atas bebas diklik, jadi kamu boleh kembali kapan saja tanpa mengulang.<br>• Atur pilihan, lalu amati hasilnya pada ponsel, Logcat, dan kotak umpan balik.<br>• Coba skenario berbeda (misalnya Min SDK berbeda) lalu bandingkan.<br>• Setelah 4 langkah, kerjakan Evaluasi.</p></div></div>
+<div class="nav"><button class="s" onclick="go('home')">Kembali</button><button onclick="go('lab')">Masuk Lab</button></div>
+</section>
+
+<section class="scr" id="lab">
+<div class="top"><div><b>Langkah <span id="sn">1</span> dari 4</b><div class="bar2" style="width:14em;margin-top:.3em"><i id="pb"></i></div></div>
+<div class="steps" id="steps"></div></div>
+<div id="body" class="row" style="flex:1;min-height:0"></div>
+<div class="nav"><button class="s" id="bk">Kembali</button><button id="nx">Berikutnya</button></div>
+</section>
+
+<section class="scr" id="eval">
+<h2 style="color:#fff">Evaluasi</h2>
+<div class="row" style="flex:1;min-height:0"><div class="card col" id="qs" style="overflow:auto"></div>
+<div class="card col"><h3>Refleksi dan penerapan</h3><p>Kasus: aplikasi kasir kantinmu gagal dipasang di HP guru yang memakai Android 7 (API 24). Apa dua hal yang kamu periksa dan ubah?</p><textarea id="ref" rows="4" placeholder="Tulis jawabanmu di sini"></textarea>
+<div id="res" class="fb">Jawab 3 soal di kiri untuk melihat skormu.</div></div></div>
+<div class="nav"><button class="s" onclick="go('lab')">Kembali ke Lab</button><button onclick="go('end')">Selesai</button></div>
+</section>
+
+<section class="scr" id="end" style="justify-content:center">
+<h1>Selamat, kamu sudah mencoba semua langkah!</h1>
+<p class="w" style="font-size:1.1em">Di dunia kerja, programmer Android memakai alur yang sama: buat proyek, rancang UI, uji di perangkat, lalu perbaiki galat.</p>
+<div class="card" style="max-width:30em;margin-top:1em"><h3>Informasi Kreator</h3><p>Kreator: [Nama Guru, gelar]<br>Organisasi: [Nama Sekolah]<br>Ilustrasi pada lab ini dibuat dengan kode (CSS) dan dirancang dengan bantuan AI (Claude).</p></div>
+<div style="margin-top:1em"><button class="s" onclick="go('home')">Ke Laman Muka</button></div>
+</section>
+</div>
+<script>
+const $=s=>document.querySelector(s);
+function go(id){document.querySelectorAll('.scr').forEach(e=>e.classList.remove('on'));$('#'+id).classList.add('on');if(id=='lab')draw()}
+const S={step:1,done:[0,0,0,0,0],tpl:null,name:'KasirKantin',sdk:'24',made:false,w:[],sel:-1,dev:null,ran:false,toast:'',bug:[null,null],log:''};
+const devs={a:{n:'Emulator Pixel 6 (Android 14, API 34)',api:34},b:{n:'Emulator Nexus 5 (Android 8, API 26)',api:26},c:{n:'HP lama (Android 5, API 21)',api:21}};
+const tplI={v:['Empty Views Activity','Tepat! Template ini memakai layout XML dan cocok untuk belajar dasar.',1],c:['Empty Activity (Compose)','Compose memakai kode Kotlin, bukan XML. Untuk lab ini pilih template yang memakai layout XML.',0],n:['No Activity','Proyek kosong tanpa layar, kamu harus membuat Activity sendiri. Kurang cocok untuk pemula.',0]};
+const wInfo={TextView:['w1','Menu hari ini'],EditText:['w2','Nama pemesan'],Button:['w3','Pesan']};
+function steps(){$('#steps').innerHTML=[1,2,3,4].map(i=>`<button class="${S.step==i?'on':''} ${S.done[i]?'done':''}" onclick="S.step=${i};draw()">Langkah ${i}</button>`).join('')+`<button class="s" onclick="go('eval')">Evaluasi</button>`}
+function phone(){const h=S.w.map((x,i)=>`<div class="${wInfo[x.t][0]} ${S.sel==i&&S.step==2?'sel':''}" ${x.t=='Button'&&S.step==3&&S.ran?`onclick="tap()"`:`onclick="S.sel=${i};draw()"`}>${esc(x.txt)}</div>`).join('');return `<div class="phone"><div class="bar">${esc(S.name)}</div>${h||'<p style="color:#777">Layar kosong</p>'}${S.toast?`<div class="toast">${S.toast}</div>`:''}</div>`}
+function esc(s){return String(s).replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]))}
+function fb(t,ok){return `<div class="fb ${ok===1?'ok':ok===0?'no':''}" id="fb">${t}</div>`}
+function draw(){steps();$('#sn').textContent=S.step;$('#pb').style.width=(S.done.slice(1,5).filter(Boolean).length*25)+'%';
+$('#bk').onclick=()=>{S.step>1?(S.step--,draw()):go('guide')};$('#nx').onclick=()=>{S.step<4?(S.step++,draw()):go('eval')};$('#nx').textContent=S.step==4?'Ke Evaluasi':'Berikutnya';
+const b=$('#body');
+if(S.step==1){b.innerHTML=`<div class="card col"><h3>Proyek baru</h3><p>Pilih template, isi nama, dan atur Minimum SDK.</p>${Object.keys(tplI).map(k=>`<button class="opt ${S.tpl==k?(tplI[k][2]?'ok':'no'):''}" onclick="S.tpl='${k}';draw()">${tplI[k][0]}</button>`).join('')}
+<label>Nama aplikasi</label><input id="nm" value="${esc(S.name)}" oninput="S.name=this.value||'App'">
+<label>Minimum SDK</label><select onchange="S.sdk=this.value;draw()"><option value="21" ${S.sdk==21?'selected':''}>API 21 (Android 5.0)</option><option value="24" ${S.sdk==24?'selected':''}>API 24 (Android 7.0)</option><option value="34" ${S.sdk==34?'selected':''}>API 34 (Android 14)</option></select></div>
+<div class="card col"><h3>Hasil pengaturan</h3>${S.tpl?fb(tplI[S.tpl][1],tplI[S.tpl][2]):fb('Pilih template di kiri.')}
+<p>Jangkauan perangkat: <b>${{21:'sekitar 99%',24:'sekitar 97%',34:'hanya perangkat paling baru (sedikit)'}[S.sdk]}</b></p><p>Min SDK rendah menjangkau lebih banyak HP, tetapi fitur terbaru terbatas.</p>
+<button onclick="mk()">Buat proyek (Finish)</button><div class="log" style="height:6em;margin-top:.5em">${S.log||'Belum ada proses Gradle.'}</div></div>`}
+if(S.step==2){const sw=S.sel>=0?S.w[S.sel]:null;b.innerHTML=`<div class="card col"><h3>Palet widget</h3><p>Klik untuk menambahkan ke layar. Klik widget di ponsel untuk mengubah teksnya.</p>${Object.keys(wInfo).map(t=>`<button class="s" style="margin:.2em" onclick="S.w.push({t:'${t}',txt:'${wInfo[t][1]}'});S.sel=S.w.length-1;draw()">+ ${t}</button>`).join('')}
+<label>Atribut android:text</label><input ${sw?'':'disabled'} value="${sw?esc(sw.txt):''}" oninput="S.w[S.sel].txt=this.value;upd()" placeholder="Pilih widget dulu">
+<button class="s" style="margin-top:.5em" onclick="S.w=[];S.sel=-1;draw()">Kosongkan layar</button>
+${fb(chk2(),S.w.some(x=>x.t=='Button')&&S.w.some(x=>x.t=='TextView')?1:S.w.length?0:undefined)}</div><div class="card col">${phone()}</div>`}
+if(S.step==3){const d=S.dev?devs[S.dev]:null;b.innerHTML=`<div class="card col"><h3>Pilih perangkat, lalu Run</h3>${Object.keys(devs).map(k=>`<button class="opt ${S.dev==k?'ok':''}" onclick="S.dev='${k}';S.ran=false;S.toast='';draw()">${devs[k].n}</button>`).join('')}
+<p>Min SDK proyekmu: <b>API ${S.sdk}</b></p><button onclick="run()">▶ Run 'app'</button><div class="log" id="lg">${S.log3||'Logcat kosong.'}</div></div><div class="card col">${S.ran?phone():'<p>Ponsel belum menyala. Pilih perangkat dan klik Run.</p>'}${S.ran?'<p>Coba ketuk tombol pada ponsel.</p>':''}</div>`}
+if(S.step==4){const c=[['E/AndroidRuntime: java.lang.NullPointerException: findViewById(R.id.btnPesan) returned null',['Tambahkan android:id="@+id/btnPesan" pada Button di XML','Hapus baris findViewById dari kode','Naikkan Min SDK ke 34'],0,'Benar! findViewById mencari id; jika id tidak ada di XML hasilnya null.'],['E/PackageManager: INSTALL_FAILED_OLDER_SDK',['Turunkan Min SDK atau pilih perangkat dengan API lebih tinggi','Ganti nama aplikasi','Restart komputer'],0,'Benar! Perangkat lebih lama dari Min SDK sehingga aplikasi tidak bisa dipasang.']];
+b.innerHTML=`<div class="col">${c.map((x,i)=>`<div class="card" style="margin-bottom:.6em"><h3>Kasus ${i+1}</h3><div class="log" style="height:auto"><span class="e">${x[0]}</span></div><p>Perbaikan apa yang tepat?</p>${x[1].map((o,j)=>`<button class="opt ${S.bug[i]==j?(j==x[2]?'ok':'no'):''}" onclick="bug(${i},${j})">${o}</button>`).join('')}${S.bug[i]!=null?fb(S.bug[i]==x[2]?x[3]:'Belum tepat. Baca lagi pesan galatnya: apa penyebab utamanya?',S.bug[i]==x[2]?1:0):''}</div>`).join('')}</div>`}}
+function chk2(){const t=S.w.some(x=>x.t=='TextView'),bt=S.w.some(x=>x.t=='Button');if(!S.w.length)return 'Tambahkan minimal satu TextView dan satu Button.';S.done[2]=t&&bt?1:0;return t&&bt?'Bagus! Tampilan sudah punya judul dan tombol aksi.':'Belum lengkap: butuh '+(t?'':'TextView ')+(bt?'':'Button')+'.'}
+function upd(){const p=document.querySelector('.phone');if(p){const k=p.parentElement;k.innerHTML=phone()}}
+function mk(){if(S.tpl!='v'){S.log='ERROR: template belum tepat. Pilih Empty Views Activity.';draw();return}S.log='Gradle sync... OK\nBuild proyek '+S.name+'... BERHASIL\nMinSdk = '+S.sdk;S.done[1]=1;draw()}
+function run(){if(!S.dev){S.log3='Pilih perangkat dahulu.';draw();return}if(!S.w.some(x=>x.t=='Button')){S.log3='Peringatan: layar tanpa Button. Kembali ke Langkah 2.'}
+const a=devs[S.dev].api;if(a<+S.sdk){S.ran=false;S.log3='<span class="e">E/PackageManager: INSTALL_FAILED_OLDER_SDK\nPerangkat API '+a+' &lt; minSdk '+S.sdk+'. Turunkan Min SDK (Langkah 1) atau ganti perangkat.</span>'}else{S.ran=true;S.done[3]=1;S.log3='I/ActivityManager: Start proc '+esc(S.name)+'\nI/Install: BERHASIL di API '+a}draw()}
+function tap(){S.toast='Pesanan tercatat!';draw();setTimeout(()=>{S.toast='';if($('#lg'))draw()},1500)}
+function bug(i,j){S.bug[i]=j;if(S.bug[0]==0&&S.bug[1]==0)S.done[4]=1;draw()}
+const Q=[['Fungsi Min SDK adalah…',['Menentukan versi Android terendah yang bisa memasang aplikasi','Menentukan warna aplikasi','Menentukan nama paket'],0],['Widget untuk menerima ketikan pengguna adalah…',['TextView','EditText','Button'],1],['Pesan "findViewById returned null" biasanya karena…',['Internet mati','Id widget tidak ada di XML','Emulator terlalu cepat'],1]];
+const ans=[null,null,null];
+function dq(){$('#qs').innerHTML=Q.map((q,i)=>`<h3>${i+1}. ${q[0]}</h3>${q[1].map((o,j)=>`<button class="opt ${ans[i]==j?(j==q[2]?'ok':'no'):''}" onclick="ans[${i}]=${j};dq();sc()">${o}</button>`).join('')}`).join('')}
+function sc(){if(ans.includes(null))return;const n=ans.filter((a,i)=>a==Q[i][2]).length;const r=$('#res');r.className='fb '+(n==3?'ok':'no');r.textContent='Skor: '+n+' dari 3. '+(n==3?'Luar biasa!':'Ulangi materi pada langkah terkait lalu coba lagi.')}
+dq();
+</script></body></html>
